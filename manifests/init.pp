@@ -1,0 +1,63 @@
+class bareos  {
+
+ require bareos::repo
+
+ exec { 'apt-update':                   
+    command => '/usr/bin/apt-get update'  
+  }
+  # install mysql-server package
+ package { 'mysql-server':
+    require => Exec['apt-update'],        # require 'apt-update' before installing
+    ensure => installed,
+ }
+
+ #  ensure mysql service is running
+ service { 'mysql':
+    ensure => running,
+   }
+
+ package { 'bareos':
+    require => Exec['apt-update'],       
+    ensure => installed,
+  }
+  
+ package { 'bareos-database-mysql':
+    require => Exec['apt-update'],
+    ensure => installed,
+   }
+
+include bareos::db
+include bareos::conf
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
