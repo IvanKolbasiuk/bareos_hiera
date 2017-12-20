@@ -60,5 +60,7 @@ file {'/etc/bareos/bareos-sd.d/device/FileStorage.conf':
   Description = "File device. A connecting Director must have the same Name and MediaType."
 }',
 }
-
+notify => Service['bareos-sd'],
+notify => Service['bareos-fd'],
+notify => Service['bareos-dir'],
 }
