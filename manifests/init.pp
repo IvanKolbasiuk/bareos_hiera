@@ -25,6 +25,15 @@ class bareos  {
     require => Exec['apt-update'],
     ensure => installed,
    }
+ service {'bareos-dir':
+    ensure => running,
+    }
+ service {'bareos-sd':
+    ensure => running,
+    }
+ service {'bareos-fd':
+    ensure => running,
+    }    
 
 include bareos::db
 include bareos::conf
