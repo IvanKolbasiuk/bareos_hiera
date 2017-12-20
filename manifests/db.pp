@@ -5,13 +5,13 @@ $db_parameters = " --user='root' --password=''"
 $db_type = 'mysql'
 
 exec { "create-db":
-      unless => "/usr/bin/mysql -uroot bareos",
-      command => "/usr/bin/mysql -uroot -e \"create database bareos;\"",
+      unless => "mysql -uroot bareos",
+      command => "mysql -uroot -e \"create database bareos;\"",
     
     }
  exec { "grant--db":
-      unless => "/usr/bin/mysql -ubareos -pbareos bareos",
-      command => "/usr/bin/mysql -uroot -e \"grant all on bareos.* to 'bareos'@'localhost' identified by 'bareos';\"",
+      unless => "mysql -ubareos -pbareos bareos",
+      command => "mysql -uroot -e \"grant all on bareos.* to 'bareos'@'localhost' identified by 'bareos';\"",
       }
  
 
