@@ -15,7 +15,7 @@ class bareos  {
  service { 'mysql':
     ensure => running,
    }
-
+include bareos::db
  package { 'bareos':
     require => Exec['apt-update'],       
     ensure => installed,
@@ -35,7 +35,7 @@ class bareos  {
     ensure => running,
     }    
 
-include bareos::db
+
 include bareos::conf
 
 }
