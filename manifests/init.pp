@@ -20,7 +20,7 @@ include bareos::db
     require => Exec['apt-update'],       
     ensure => installed,
   }
-  
+ include bareos::conf 
  package { 'bareos-database-mysql':
     require => Exec['apt-update'],
     ensure => installed,
@@ -34,10 +34,6 @@ include bareos::db
  service {'bareos-fd':
     ensure => running,
     }    
-
-
-include bareos::conf
-
 }
 
 
