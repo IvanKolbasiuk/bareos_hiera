@@ -12,6 +12,7 @@ notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
 owner => 'bareos',
 group => 'bareos',
 mode => '0750',
+require => Package['bareos'],
 }
 file {'/etc/bareos/bareos-dir.d/schedule/TenMinutes.conf':
     ensure => file,
