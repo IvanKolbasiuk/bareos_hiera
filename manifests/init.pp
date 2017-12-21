@@ -7,7 +7,7 @@ class bareos  {
   }
   # install mysql-server package
  package { 'mysql-server':
-    require => Exec['apt-update'],        # require 'apt-update' before installing
+    require => Exec['apt-update'],       
     ensure => installed,
  }
 
