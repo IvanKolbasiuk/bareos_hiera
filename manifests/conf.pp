@@ -9,6 +9,9 @@ dbdriver = mysql
 dbpassword = bareos
 }',
 notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
+owner => 'bareos',
+group => 'bareos',
+mode => '0750',
 }
 file {'/etc/bareos/bareos-dir.d/schedule/TenMinutes.conf':
     ensure => file,
@@ -22,6 +25,9 @@ file {'/etc/bareos/bareos-dir.d/schedule/TenMinutes.conf':
   Run = Level=Full hourly at 0:55
 }',
 notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
+owner => 'bareos',
+group => 'bareos',
+mode => '0750',
 }
 file {'/etc/bareos/bareos-dir.d/job/myapp.conf':
     ensure => file,
@@ -35,6 +41,9 @@ file {'/etc/bareos/bareos-dir.d/job/myapp.conf':
   Schedule = "TenMinutes"
 }',
 notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
+owner => 'bareos',
+group => 'bareos',
+mode => '0750',
 }
 file {'/etc/bareos/bareos-dir.d/fileset/Myapp.conf':
     ensure => file,
@@ -48,6 +57,9 @@ file {'/etc/bareos/bareos-dir.d/fileset/Myapp.conf':
     }
 }',
 notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
+owner => 'bareos',
+group => 'bareos',
+mode => '0750',
 }
 file {'/etc/bareos/bareos-sd.d/device/FileStorage.conf':
      ensure => file,
@@ -64,5 +76,8 @@ file {'/etc/bareos/bareos-sd.d/device/FileStorage.conf':
   Description = "File device. A connecting Director must have the same Name and MediaType."
 }',
 notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
+owner => 'bareos',
+group => 'bareos',
+mode => '0750',
 }
 }
