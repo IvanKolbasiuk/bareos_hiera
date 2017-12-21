@@ -12,7 +12,7 @@ exec { "create-db":
  exec { "grant--db":
       unless => "/usr/bin/mysql -ubareos -pbareos bareos",
       command => "/usr/bin/mysql -uroot -e \"grant all on bareos.* to 'bareos'@'localhost' identified by 'bareos';\"",
-      require => Service['mysql'],
+      require => Package['mysql-server'],
      }
  
 
