@@ -1,17 +1,17 @@
 class bareos::db {
-   
+   require bareos
 $script_directory = '/usr/lib/bareos/scripts'
 $db_parameters = " --user='root' --password=''"
 $db_type = 'mysql'
 
 exec { "create-db":
-      unless => "mysql -uroot bareos",
-      command => "mysql -uroot -e \"create database bareos;\"",
+      unless => "/usr/bin/mysql -uroot bareos",
+      command => "/usr/bin/mysql -uroot -e \"create database bareos;\"",
     
     }
  exec { "grant--db":
-      unless => "mysql -ubareos -pbareos bareos",
-      command => "mysql -uroot -e \"grant all on bareos.* to 'bareos'@'localhost' identified by 'bareos';\"",
+      unless => "/usr/bin/mysql -ubareos -pbareos bareos",
+      command => "/usr/bin/mysql -uroot -e \"grant all on bareos.* to 'bareos'@'localhost' identified by 'bareos';\"",
       }
  
 
