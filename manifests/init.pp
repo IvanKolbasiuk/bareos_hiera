@@ -36,7 +36,7 @@ class bareos  {
     }    
 
 include bareos::db
-require bareos::conf
+include bareos::conf
 
 }
 
