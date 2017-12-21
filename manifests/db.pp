@@ -7,8 +7,8 @@ $db_type = 'mysql'
 exec { "create-db":
       unless => "/usr/bin/mysql -uroot bareos",
       command => "/usr/bin/mysql -uroot -e \"create database bareos;\"",
-      require => Service['mysql'],
-    }
+      require => Package['mysql-server'],
+      }
  exec { "grant--db":
       unless => "/usr/bin/mysql -ubareos -pbareos bareos",
       command => "/usr/bin/mysql -uroot -e \"grant all on bareos.* to 'bareos'@'localhost' identified by 'bareos';\"",
@@ -18,7 +18,7 @@ exec { "create-db":
 
 exec { 'make_tables':
          command => "${script_directory}/make_bareos_tables ${db_type} ${db_parameters}",
-            
+           refreshonly  => true, 
       }
 exec { 'grant_privileges':
          command  => "${script_directory}/grant_bareos_privileges ${db_type} ${db_parameters}",
