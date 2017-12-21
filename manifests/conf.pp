@@ -29,6 +29,7 @@ notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
 owner => 'bareos',
 group => 'bareos',
 mode => '0750',
+require => Package['bareos'],
 }
 file {'/etc/bareos/bareos-dir.d/job/myapp.conf':
     ensure => file,
@@ -45,6 +46,7 @@ notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
 owner => 'bareos',
 group => 'bareos',
 mode => '0750',
+require => Package['bareos'],
 }
 file {'/etc/bareos/bareos-dir.d/fileset/Myapp.conf':
     ensure => file,
@@ -61,6 +63,7 @@ notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
 owner => 'bareos',
 group => 'bareos',
 mode => '0750',
+require => Package['bareos'],
 }
 file {'/etc/bareos/bareos-sd.d/device/FileStorage.conf':
      ensure => file,
@@ -80,5 +83,6 @@ notify => Service['bareos-sd', 'bareos-fd', 'bareos-dir'],
 owner => 'bareos',
 group => 'bareos',
 mode => '0750',
+require => Package['bareos'],
 }
 }
