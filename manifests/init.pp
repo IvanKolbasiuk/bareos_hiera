@@ -14,6 +14,7 @@ class bareos  {
  #  ensure mysql service is running
  service { 'mysql':
     ensure => running,
+    require =>Package['mysql-server'],
    }
 include bareos::db
  package { 'bareos':
