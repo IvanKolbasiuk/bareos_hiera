@@ -1,5 +1,4 @@
 class bareos::conf {
-require bareos
 file {'/etc/bareos/bareos-dir.d/catalog/MyCatalog.conf':
     ensure => file,
     content => 'catalog {
