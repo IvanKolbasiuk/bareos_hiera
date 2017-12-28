@@ -1,0 +1,116 @@
+---
+classes:
+  - bareos
+bareos::db::script_dir: '/usr/lib/bareos/scripts'
+bareos::db::db_parameters: " --user='root' --password=''"
+bareos::db::db_type: 'mysql'
+bareos::db::db_user: 'bareos'
+bareos::db::db_name: 'bareos'
+bareos::db::db_pass: 'bareos'
+bareos::conf1::f_owner: 'bareos'
+bareos::conf1::f_group: 'bareos'
+bareos::conf1::f_mode: '0750'
+bareos::conf1::job_name: 'BackupApp'
+bareos::conf1::job_def: 'DefaultJob'
+bareos::conf1::b_level: 'Full'
+bareos::conf1::fileset: 'Myapp'
+bareos::conf1::schedule: 'TenMinutes'
+bareos::conf1::source_path:
+  - 'File = /var/lib/mysql'
+  - 'File = /var/www'
+bareos::conf1::backup_path: '/home/ubuntu/test'
+bareos::confhiera::files:
+  '/tmp/MyCatalog.conf':
+    content:
+      catalog {
+
+      Name = MyCatalog
+
+      dbuser = bareos
+
+      dbname = bareos
+
+      dbdriver = mysql
+
+      dbpassword = bareos
+
+      }
+  '/etc/bareos/bareos-dir.d/schedule/TenMinutes.conf':
+    content:
+      Schedule {
+
+      Name = "TenMinutes" 
+
+      Run = Level=Full hourly at 0:05
+
+      Run = Level=Full hourly at 0:15
+
+      Run = Level=Full hourly at 0:25
+
+      Run = Level=Full hourly at 0:35
+
+      Run = Level=Full hourly at 0:45
+
+      Run = Level=Full hourly at 0:55
+
+      }
+  '/etc/bareos/bareos-dir.d/job/myapp.conf':
+    content:
+      Job {
+
+      Name = "BackupApp"
+
+      Description = "Backup some app"
+
+      JobDefs = "DefaultJob"
+
+      Client = bareos-fd
+
+      Level = Full
+
+      FileSet="Myapp"
+
+      Schedule = "TenMinutes"
+      }
+  '/etc/bareos/bareos-dir.d/fileset/Myapp.conf':
+    content:
+      FileSet {
+
+      Name = Myapp
+
+      Include {
+
+      Options {
+
+      Signature = SHA1
+      }
+
+      File = /var/lib/mysql
+
+      }
+
+      }
+  '/etc/bareos/bareos-sd.d/device/FileStorage.conf':
+    content: 
+      Device {
+
+      Name = FileStorage
+
+      Media Type = File
+
+      Archive Device = /home/ubuntu/test
+
+      LabelMedia = yes; 
+                  
+      Random Access = yes;
+
+      AutomaticMount = yes; 
+              
+      RemovableMedia = no;
+
+      AlwaysOpen = yes;
+
+      Description = "File device. A connecting Director must have the same Name and MediaType."
+
+      }
+  
