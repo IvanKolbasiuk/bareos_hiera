@@ -20,7 +20,7 @@ exec { "create-db":
 
 exec { 'make_tables':
          command => "${script_directory}/make_bareos_tables ${db_type} ${db_parameters}",
-      refreshonly => true,      
+            
       }
 exec { 'grant_privileges':
          command  => "${script_directory}/grant_bareos_privileges ${db_type} ${db_parameters}",
